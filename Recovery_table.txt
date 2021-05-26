@@ -1,0 +1,7 @@
+Recovery Tables
+===============
+mysql> check table table-name;
+
+mysql> repair table table-name;
+
+mysql > exit;

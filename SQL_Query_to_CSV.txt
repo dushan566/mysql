@@ -1,0 +1,1 @@
+mysql -u root -p -h rds-endpoint db_name < query.sql | sed "s/'/\'/;s/\t/\",\"/g;s/^/\"/;s/$/\"/;s/\n//g" > result.csv

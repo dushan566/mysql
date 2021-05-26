@@ -1,0 +1,6 @@
+# Backup your MySQL Database with gzip Compress
+$ mysqldump -u root -p [dbname] | gzip -9 > [backupfile.sql.gz]
+
+Backup without data/-
+--no-data: Dumps only the database structure, not the contents.
+$ mysqldump -u root -p --no-data Tutorials_db  > content_backup.sql 

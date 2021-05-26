@@ -1,0 +1,22 @@
+Login to DB
+####################
+mysql -u root -p
+
+
+List DBs
+####################
+mysql> show databases;
+
+Switch to DB
+####################
+mysql> use mydatabase_name;
+
+Get Table Locks
+####################
+show open tables where In_Use > 0 ;
+SHOW PROCESSLIST;
+
+Lock Tables
+####################
+LOCK TABLES mytablename READ;
+LOCK TABLES mytablename WRITE;

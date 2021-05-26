@@ -1,0 +1,47 @@
+RDS read replica issue.
+========================
+log_bin_trust_function_creators should be 1
+lower_case_table_names hould be 1
+
+Above 2 settings should add to RDS Parameter group
+
+
+I was stuck with DB restore and had to restore twice.
+Finally identified the issue and fixed the DB parameter settings.
+
+Issues
+
+1. Even though table exist, code cannot identify (lower case and upper case table names)
+Fixed by setting "lower_case_table_names = 1" in DB parameter group.
+
+2. When restore large database, exceeding the max packet size.
+Fixed by changing "max_allowed_packet = 1000000000" in DB parameter group
+
+
+
+RDS copy to another region
+==========================
+aws rds copy-db-snapshot \
+    --source-db-snapshot-identifier arn:aws:rds:eu-west-1:123456789:snapshot:rds:production-rds-2017-01-30-23-07 \
+    --region eu-central-1 \
+    --target-db-snapshot-identifier production-rds-2017-01-30-23-07-copy 
+
+
+
+RDS Restore
+==========================
+aws rds restore-db-instance-from-db-snapshot --db-instance-identifier new-rds-name --region eu-west-1 --db-snapshot-identifier rds:production-rds-$YEAR-$LASTMONTH2-30-23-07 --publicly-accessible --no-multi-az --auto-minor-version-upgrade --db-subnet-group-name default-vpc-123456
+
+
+Backup DB in a RDS
+==========================
+mysqldump -h rds-endpoint-name  -u root -p --routines --triggers --single-transaction db_name > db_name_backup.sql
+
+Note: Some times db restore will fail due to "DEFINER=`[^`]+`@`[^`]+`" special characters in the dump file. Then convert dump to a new sql file to remove them.
+
+perl -pe 's/\sDEFINER=`[^`]+`@`[^`]+`//'  < db_name_backup.sql > new_db_name_backup.sql
+
+
+Restore DB in a RDS
+==========================
+mysql  -u root -p -h rds-endpoint-name db_name < new_db_name_backup.sql

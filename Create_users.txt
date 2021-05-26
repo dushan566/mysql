@@ -1,0 +1,8 @@
+# Normal instances
+CREATE USER 'devuser'@'%' IDENTIFIED BY 'mypassword';
+GRANT SELECT ON *.* TO 'kevinedevuserllis'@'%';
+
+
+# RDS instances
+CREATE USER 'devuser'@'%' IDENTIFIED BY 'mypassword';
+GRANT SELECT ON dbname.* TO 'kevinedevuserllis'@'%';

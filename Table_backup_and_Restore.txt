@@ -1,0 +1,37 @@
+##########################################################################################################
+Backup Tables
+##########################################################################################################
+
+Single table backup
+$ mysqldump -u root -p Tutorials_db php_tutorials_table1 > tut_table1_backup.sql
+--------------------------------------------------------------------------------------------------------
+
+Multiple table backup
+$ mysqldump -u root -p Tutorials_db php_tutorials_table1 php_tutorials_table2 > tut_table1_backup.sql
+--------------------------------------------------------------------------------------------------------
+
+Backup table without data
+$ mysqldump -u root -p --no-data Tutorials_db php_tutorials_table1 > tut_table1_backup.sql
+--------------------------------------------------------------------------------------------------------	
+
+###--add-drop-table: Tells MySQL to add a DROP TABLE statement before each CREATE TABLE in the dump.
+####$ mysqldump -u root -p --add-drop-table Tutorials_db
+--------------------------------------------------------------------------------------------------------
+
+
+
+##########################################################################################################
+Restore Tables
+##########################################################################################################
+
+*Drop Table
+   root@host# mysql -u root -p
+   Enter password:*******
+   mysql> use TUTORIALS;
+   Database changed
+   mysql> DROP TABLE tutorials_tbl
+
+
+--------------------------------------------------------------------------------------------------------
+mysql -u root -p DatabaseName < path\TableName.sql
+--------------------------------------------------------------------------------------------------------
